@@ -1,0 +1,3 @@
+import sys
+
+binary = bytes
