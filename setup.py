@@ -24,11 +24,14 @@ README = (open(os.path.join(here, 'README.rst')).read()
           open(os.path.join(here, 'CHANGES.rst')).read())
 
 if sys.version_info[:1] < (3,):
-    EXT = 'src/zodbpickle/_pickle_27.c'
+    EXT = 'src/python2/zodbpickle/_pickle_27.c'
+    SRC = 'src/python2'
 elif sys.version_info[:2] == (3, 2):
-    EXT = 'src/zodbpickle/_pickle_32.c'
+    EXT = 'src/python3/zodbpickle/_pickle_32.c'
+    SRC = 'src/python3'
 else:
-    EXT = 'src/zodbpickle/_pickle_33.c'
+    EXT = 'src/python3/zodbpickle/_pickle_33.c'
+    SRC = 'src/python3'
 
 # PyPy and jython won't build the extension.
 py_impl = getattr(platform, 'python_implementation', lambda: None)
@@ -74,8 +77,8 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         ],
     platforms=['any'],
-    packages=find_packages('src'),
-    package_dir = {'':'src'},
+    packages=find_packages(SRC),
+    package_dir = {'':SRC},
     ext_modules = ext_modules,
     extras_require = {
         'test': (),
